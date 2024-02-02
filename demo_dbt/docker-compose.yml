@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgresdb:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ny_taxi
+      POSTGRES_USER: ahona
+      POSTGRES_PASSWORD: ahona
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: ahona
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgresdb
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  pg-data:
+  pgadmin-data:
